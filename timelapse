@@ -15,10 +15,10 @@ if [ $# -ne 4 ]; then
 	echo "crf:"
     echo "10: kb/s:130383.70"
     echo "14: kb/s:39048.89"
-    echo "15: kb/s:28017.09"
+    echo "15: kb/s:28017.09 (default)"
     echo "16: kb/s:21019.86"
     echo "18: kb/s:11732.31"
-    echo "20: kb/s:6390.09"
+    echo "20: kb/s:6390.09 (mobile)"
     echo "22: kb/s:3803.53"
 	exit
 fi
