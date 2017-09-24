@@ -5,4 +5,5 @@ if [ $# -ne 1 ]; then
 	echo "call $0 {fps} {path}"
 fi
 
-ffmpeg -framerate $1 -pattern_type glob -i $2 -c:v copy output.avi
+ffmpeg -framerate $1 -pattern_type glob -i "$2" -c:v copy output_raw.avi
+ffmpeg -i output_raw.avi -c:v libx264 -preset slow -crf 15 output.mkv
