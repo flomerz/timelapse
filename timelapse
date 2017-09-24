@@ -27,4 +27,4 @@ timelapse-numerize
 timelapse-resize $1
 timelapse-deflicker -w $2 -p $3
 timelapse-ffmpeg $4 'Deflickered/*.jpg' 'output_raw.avi'
-timelapse-compress $5 'output_raw.avi' 'output_high.avi'
+timelapse-compress $5 'output_raw.avi' 'output.avi'
