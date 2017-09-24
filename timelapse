@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ $# -ne 4 ]; then
+	echo "error: arguments not set"
+	echo "call $0 {X}x{Y} {deflicker window} {deflicker runs} {fps}"
+	echo
+	echo "resize:"
+	echo "full hd: 1920x1080(16:9), 1920x1440(4:3)"
+	echo "hd: 1280x720(16:9), 1280x960(4:3)"
+	echo
+	echo "deflicker: 15 2"
+	echo
+	echo "fps: 24"
+	exit
+fi
+
+timelapse-numerize
+timelapse-resize $1
+timelapse-deflicker -w $2 -p $3
+timelapse-ffmpeg $4 'Deflickered/*.jpg'

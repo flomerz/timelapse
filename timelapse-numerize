@@ -1,0 +1,4 @@
+#!/bin/bash
+counter=1
+ls -1 */*.jpg | while read filename; do mv $filename $(printf %06d $counter).jpg; ((counter++)); done
+rm -R */

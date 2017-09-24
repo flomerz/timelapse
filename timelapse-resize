@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ -z ${1+x} ]; then
+	echo "error: resolution not set"
+	echo "call $0 {X}x{Y}"
+	echo "full hd: 1920x1080(16:9), 1920x1440(4:3)"
+	echo "hd: 1280x720(16:9), 1280x960(4:3)"
+	exit
+fi
+
+parallel --no-notice --progress gm mogrify -quality 100 -resize "$1!" ::: *.jpg
