@@ -8,9 +8,9 @@ if [ $# -ne 4 ]; then
 	echo "full hd: 1920x1080(16:9), 1920x1440(4:3)"
 	echo "hd: 1280x720(16:9), 1280x960(4:3)"
 	echo
-	echo "deflicker: 15 2"
+	echo "deflicker: 120 2"
 	echo
-	echo "fps: 24"
+	echo "fps: 60"
 	exit
 fi
 
