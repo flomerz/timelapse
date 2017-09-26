@@ -7,5 +7,5 @@ if [ $# -ne 3 ]; then
 	exit
 fi
 
-ffmpeg -y -i "$2" -c:v libx264 -preset medium -b:v $1 -pass 1 -f mp4 /dev/null && \
-ffmpeg -i "$2" -c:v libx264 -preset medium -b:v $1 -pass 2 $3
+ffmpeg -y -i "$2" -c:v libx264 -preset veryslow -b:v $1 -pass 1 -f mp4 /dev/null && \
+ffmpeg -i "$2" -c:v libx264 -preset veryslow -b:v $1 -pass 2 $3
