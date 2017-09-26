@@ -18,7 +18,7 @@ if [ $# -ne 4 ]; then
     echo "15: kb/s:28017.09 (default)"
     echo "16: kb/s:21019.86"
     echo "18: kb/s:11732.31"
-    echo "20: kb/s:6390.09 (mobile)"
+    echo "20: kb/s:6390.09 (ok)"
     echo "22: kb/s:3803.53"
 	exit
 fi
@@ -27,4 +27,4 @@ timelapse-numerize
 timelapse-resize $1
 timelapse-deflicker -w $2 -p $3
 timelapse-ffmpeg $4 'Deflickered/*.jpg' 'output_raw.avi'
-timelapse-compress $5 'output_raw.avi' 'output.avi'
+timelapse-ffmpeg-x264 $5 'output_raw.avi' 'output.avi'

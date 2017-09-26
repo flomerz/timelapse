@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ $# -ne 3 ]; then
+	echo "error: arguments not set"
+	echo "call $0 {bitrate} {input} {output file}"
+    echo "bitrate: 2600k"
+	exit
+fi
+
+ffmpeg -y -i "$2" -c:v libx264 -preset medium -b:v $1 -pass 1 -f mp4 /dev/null && \
+ffmpeg -i "$2" -c:v libx264 -preset medium -b:v $1 -pass 2 $3
