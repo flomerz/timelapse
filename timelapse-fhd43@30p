@@ -1,2 +1,0 @@
-#!/bin/bash
-timelapse 1920x1440 60 2 30 15

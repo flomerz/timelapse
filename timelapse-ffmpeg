@@ -1,9 +1,0 @@
-#!/bin/bash
-
-if [ $# -ne 3 ]; then
-	echo "error: arguments not set"
-	echo "call $0 {fps} {input} {output file}"
-	exit
-fi
-
-ffmpeg -framerate $1 -pattern_type glob -i "$2" -c:v copy $3

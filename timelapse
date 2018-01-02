@@ -1,30 +1,51 @@
 #!/bin/bash
 
-if [ $# -ne 4 ]; then
+if [ $# -lt 2 ]; then
 	echo "error: arguments not set"
-	echo "call $0 {X}x{Y} {deflicker window} {deflicker runs} {fps} {crf}"
+	echo "call $0 {src-dir} {dest-dir}"
 	echo
-	echo "resize:"
-	echo "full hd: 1920x1080(16:9), 1920x1440(4:3)"
-	echo "hd: 1280x720(16:9), 1280x960(4:3)"
-	echo
-	echo "deflicker: 120 2"
-	echo
-	echo "fps: 60"
-	echo
-	echo "crf:"
-    echo "10: kb/s:130383.70"
-    echo "14: kb/s:39048.89"
-    echo "15: kb/s:28017.09 (default)"
-    echo "16: kb/s:21019.86"
-    echo "18: kb/s:11732.31"
-    echo "20: kb/s:6390.09 (ok)"
-    echo "22: kb/s:3803.53"
 	exit
 fi
 
-timelapse-numerize
-timelapse-resize $1
-timelapse-deflicker -w $2 -p $3
-timelapse-ffmpeg $4 'Deflickered/*.jpg' 'output_raw.avi'
-timelapse-ffmpeg-x264 $5 'output_raw.avi' 'output.avi'
+main() {
+	echo "task: import"
+	gcp -vr $1/* $2
+
+	cd $2
+
+	echo "task: numerize"
+	numerizeImages
+
+	# echo "task: resize"
+	# resizeImages ${3:-"1920x1440"}
+
+	echo "task: deflicker"
+	deflickerImages
+	rm *.jpg *.jpg.xmp
+
+	echo "task: create video"
+	createVideo "Deflickered/*.jpg" "raw.avi"
+	rm -r Deflickered/
+}
+
+numerizeImages() {
+	counter=1
+	ls -1 */*.jpg | while read filename; do mv $filename $(printf %06d $counter).jpg; ((counter++)); done
+	rm -R */
+}
+
+# resizeImages {X}x{Y}
+resizeImages() {
+	parallel --no-notice --progress gm mogrify -quality 100 -resize "$1!" ::: *.jpg
+}
+
+deflickerImages() {
+	`dirname "$(readlink -f "$0")"`/deflicker -p 2
+}
+
+# createVideo {input} {output file}
+createVideo() {
+	ffmpeg -framerate 24 -pattern_type glob -i "$1" -c:v copy $2
+}
+
+main "$@"
